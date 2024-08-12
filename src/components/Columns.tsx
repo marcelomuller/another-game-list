@@ -2,15 +2,13 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 export type GamesList = {
   id: string,
   title: string,
   genre: string,
   hoursPlayed: number,
   recommended: boolean,
-  status: 'beaten' | 'completed' | 'dropped',
+  gameStatus: 'Beaten' | 'Completed' | 'Dropped',
 }
 
 export const columns: ColumnDef<GamesList>[] = [
@@ -29,9 +27,10 @@ export const columns: ColumnDef<GamesList>[] = [
   {
     accessorKey: 'recommended',
     header: 'Recommended',
+    cell: ({ getValue }) => getValue<boolean>() ? 'Yes' : 'No',
   },
   {
-    accessorKey: 'status',
+    accessorKey: 'gameStatus',
     header: 'Status',
   },
 ];
