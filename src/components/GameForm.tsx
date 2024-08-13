@@ -20,11 +20,11 @@ const formSchema = z.object({
   title: z.string().min(1, { message: 'Game name is required.' }),
   genre: z.string().min(1, { message: 'Game genre is required.' }),
   hoursPlayed: z.coerce.number().gte(0),
-  gameStatus: z.enum(['dropped', 'completed', 'beaten']),
+  gameStatus: z.enum(['Dropped', 'Completed', 'Beaten']),
   recommended: z.boolean(),
 });
 
-export const GameForm = () => {
+export const GameForm = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
   const hoursRef = useRef<HTMLInputElement>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -38,8 +38,13 @@ export const GameForm = () => {
     }
   });
   
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log('cheguei');
+  const formSubmit = (data: z.infer<typeof formSchema>) => {
+    const newGame = {
+      id: Math.random().toString(32).substring(3),
+      ...data,
+    };
+    onSubmit(newGame);
+    form.reset();
     console.log('Form: ', data);
   };
 
@@ -50,7 +55,7 @@ export const GameForm = () => {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(formSubmit)}
         className='flex flex-col gap-6'
       >
         <FormField
@@ -132,14 +137,14 @@ export const GameForm = () => {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 <label
                   className={`cursor-pointer p-4 border-2 rounded-lg shadow-sm transition-colors ${
-                    field.value === 'beaten' ? 'border-blue-400' : 'border-gray-300'
+                    field.value === 'Beaten' ? 'border-blue-400' : 'border-gray-300'
                   }`}
                   style={{ minHeight: "30%" }}
                 >
                   <input
                     type="radio"
-                    value="beaten"
-                    checked={field.value === 'beaten'}
+                    value="Beaten"
+                    checked={field.value === 'Beaten'}
                     onChange={field.onChange}
                     className="hidden"
                   />
@@ -150,14 +155,14 @@ export const GameForm = () => {
                 </label>
                 <label
                   className={`cursor-pointer p-4 border-2 rounded-lg shadow-sm transition-colors ${
-                    field.value === 'completed' ? 'border-blue-400' : 'border-gray-300'
+                    field.value === 'Completed' ? 'border-blue-400' : 'border-gray-300'
                   }`}
                   style={{ minHeight: "30%" }}
                 >
                   <input
                     type="radio"
-                    value="completed"
-                    checked={field.value === 'completed'}
+                    value="Completed"
+                    checked={field.value === 'Completed'}
                     onChange={field.onChange}
                     className="hidden"
                   />
@@ -168,14 +173,14 @@ export const GameForm = () => {
                 </label>
                 <label
                   className={`cursor-pointer p-4 border-2 rounded-lg shadow-sm transition-colors ${
-                    field.value === 'dropped' ? 'border-blue-400' : 'border-gray-300'
+                    field.value === 'Dropped' ? 'border-blue-400' : 'border-gray-300'
                   }`}
                   style={{ minHeight: "30%" }}
                 >
                   <input
                     type="radio"
-                    value="dropped"
-                    checked={field.value === 'dropped'}
+                    value="Dropped"
+                    checked={field.value === 'Dropped'}
                     onChange={field.onChange}
                     className="hidden"
                   />
@@ -188,7 +193,7 @@ export const GameForm = () => {
             )}
           />
         </div>
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center mb-12'>
           <Button type='submit' className='w-fit'>Submit</Button>
         </div>
       </form>
