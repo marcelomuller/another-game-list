@@ -194,7 +194,7 @@ export const GameForm = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
           />
         </div>
         <div className='flex flex-col items-center mb-12'>
-          <Button type='submit' className='w-fit'>Submit</Button>
+          <Button type='submit' className='w-fit'>Add game</Button>
         </div>
       </form>
     </Form>
