@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import ModeToggle from '@/components/ModeToggle';
 import GameTable from '@/components/GameTable';
+import { AddGameDialog } from '@/components/AddGameDialog';
 // import { GamesList } from '@/components/Columns';
 
 // const getData = async (): Promise<GamesList[]> => {
@@ -28,6 +29,7 @@ export default async function Home() {
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl cursor-default">
         another beaten games list
       </h1>
+      <AddGameDialog />
       <p className="text-xl text-muted-foreground">
         Add your Steam games here and keep track of your progress
       </p>
