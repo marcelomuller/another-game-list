@@ -1,6 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
+## Beaten games list
 
 App made to keep track of beaten, 100% completed and dropped Steam games, as Steam itself doesn't really provide a great way of showing that to the user.
 
