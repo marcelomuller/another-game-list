@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
 import { useRef } from 'react';
+import { GamesList } from './Columns';
 
 const formSchema = z.object({
   title: z.string().min(1, { message: 'Game name is required.' }),
@@ -24,10 +25,11 @@ const formSchema = z.object({
   recommended: z.boolean(),
 });
 
-export const GameForm = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
+export const GameForm = ({ onSubmit, onCancel }: { onSubmit: (data: GamesList) => void, onCancel: () => void }) => {
   const hoursRef = useRef<HTMLInputElement>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
+    mode: 'onSubmit',
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: '',
@@ -150,7 +152,7 @@ export const GameForm = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
                   />
                   <div>
                     <h2 className='text-sm my-0.5'>Game beaten?</h2>
-                    <FormDescription>You{`'ve`} only beaten the game, and that{`'s`} all.</FormDescription>
+                    <FormDescription>Game beaten with any percentage.</FormDescription>
                   </div>
                 </label>
                 <label
@@ -193,8 +195,9 @@ export const GameForm = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
             )}
           />
         </div>
-        <div className='flex flex-col items-center mb-12'>
+        <div className='flex justify-center space-x-2 mb-12'>
           <Button type='submit' className='w-fit'>Add game</Button>
+          <Button type='button' variant='outline' onClick={onCancel} >Cancel</Button>
         </div>
       </form>
     </Form>
